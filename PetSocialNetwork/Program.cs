@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using PetSocialNetwork.Configurations;
+using PetSocialNetwork.Data;
+using System;
+
 namespace PetSocialNetwork
 {
     public class Program
@@ -5,9 +10,20 @@ namespace PetSocialNetwork
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var postgresConfig = builder.Configuration
+               .GetRequiredSection("PostgresConfig")
+               .Get<PostgresConfig>();
+            if (postgresConfig is null)
+            {
+                throw new InvalidOperationException("PostgresConfig is not configured");
+            }
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql
+                ($"Host={postgresConfig.ServerName};Port={postgresConfig.Port};Database={postgresConfig.DatabaseName};Username={postgresConfig.UserName};Password={postgresConfig.Password};"));
 
             var app = builder.Build();
 
