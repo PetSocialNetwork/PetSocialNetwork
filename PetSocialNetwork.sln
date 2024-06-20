@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App", "sou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App.Server", "sources\PetSocialNetwork.App.Server\PetSocialNetwork.App.Server.csproj", "{D9887D12-7205-4025-BBB6-0D8F2CD53375}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Data.Migrator", "sources\PetSocialNetwork.Data.Migrator\PetSocialNetwork.Data.Migrator.csproj", "{4E67E924-459C-43AE-A153-2848E0263E9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Data", "sources\PetSocialNetwork.Data\PetSocialNetwork.Data.csproj", "{AAC947BD-D473-4958-B466-045D1ED1CD4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Domain", "sources\PetSocialNetwork.Domain\PetSocialNetwork.Domain.csproj", "{0663F32F-1752-4C62-9BC7-8118337A0EC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E67E924-459C-43AE-A153-2848E0263E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E67E924-459C-43AE-A153-2848E0263E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E67E924-459C-43AE-A153-2848E0263E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E67E924-459C-43AE-A153-2848E0263E9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC947BD-D473-4958-B466-045D1ED1CD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC947BD-D473-4958-B466-045D1ED1CD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC947BD-D473-4958-B466-045D1ED1CD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC947BD-D473-4958-B466-045D1ED1CD4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0663F32F-1752-4C62-9BC7-8118337A0EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0663F32F-1752-4C62-9BC7-8118337A0EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0663F32F-1752-4C62-9BC7-8118337A0EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0663F32F-1752-4C62-9BC7-8118337A0EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
