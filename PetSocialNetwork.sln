@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork", "PetSoci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App", "sources\PetSocialNetwork.App\PetSocialNetwork.App.csproj", "{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App.Server", "sources\PetSocialNetwork.App.Server\PetSocialNetwork.App.Server.csproj", "{D9887D12-7205-4025-BBB6-0D8F2CD53375}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9887D12-7205-4025-BBB6-0D8F2CD53375}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
