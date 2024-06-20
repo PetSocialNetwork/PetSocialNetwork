@@ -9,19 +9,11 @@ namespace PetSocialNetwork
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            var postgresConfig = builder.Configuration
-               .GetRequiredSection("PostgresConfig")
-               .Get<PostgresConfig>();
-            if (postgresConfig is null)
-            {
-                throw new InvalidOperationException("PostgresConfig is not configured");
-            }
-
+            
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql
-                ($"Host={postgresConfig.ServerName};Port={postgresConfig.Port};Database={postgresConfig.DatabaseName};Username={postgresConfig.UserName};Password={postgresConfig.Password};"));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
             var app = builder.Build();
 
@@ -38,9 +30,7 @@ namespace PetSocialNetwork
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllers();
 
             app.Run();
         }

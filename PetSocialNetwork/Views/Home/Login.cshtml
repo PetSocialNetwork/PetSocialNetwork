@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <h1>Login with Telegram</h1>
+    <div id="telegram-login"></div>
+</div>
+<script async
+        src="https://telegram.org/js/telegram-widget.js?4"
+        data-telegram-login="YourBotUsername"
+        data-size="large"
+        data-userpic="false"
+        data-auth-url="https://your-domain.com/auth/telegram/callback"
+        data-request-access="write">
+</script>
