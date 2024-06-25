@@ -9,8 +9,15 @@ namespace PetSocialNetwork
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors(
+                options => options.AddDefaultPolicy(
+                    cors => cors
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()));
             
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllers();
 
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
@@ -23,8 +30,8 @@ namespace PetSocialNetwork
                 app.UseHsts();
             }
 
+            app.UseCors();
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
             app.UseRouting();
 

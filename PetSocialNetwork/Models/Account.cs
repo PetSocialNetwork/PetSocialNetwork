@@ -7,6 +7,7 @@
         private string _hashedPassword;
 
         protected Account() { }
+        
         public Account(Guid id, string telegramId, string hashedPassword)
         {
             if (string.IsNullOrWhiteSpace(hashedPassword))

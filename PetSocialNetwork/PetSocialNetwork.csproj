@@ -17,4 +17,13 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
+    <_ContentIncludedByDefault Remove="Views\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\Login\_TelegramLoginPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+
 </Project>
