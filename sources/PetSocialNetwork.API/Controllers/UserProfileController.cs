@@ -15,8 +15,8 @@ namespace PetSocialNetwork.API.Controllers
 
         public UserProfileController(IValidator<UserProfile> validator, PetSocialNetworkDbContext context)
         {
-            _validator = validator;
-            _context = context;
+            _validator = validator ?? throw new ArgumentNullException(nameof(validator));
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         [HttpGet("{id}", Name = "GetProfile")]
