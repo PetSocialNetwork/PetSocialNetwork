@@ -1,4 +1,4 @@
-﻿namespace PetSocialNetwork.Controllers;
+﻿namespace PetSocialNetwork.API.Models;
 
 public class TelegramAuthRequest
 {
