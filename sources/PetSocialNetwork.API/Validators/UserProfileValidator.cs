@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using PetSocialNetwork.Domain.Membership;
+using PetSocialNetwork.API.DTOs;
 
 namespace PetSocialNetwork.API.Validators
 {
-    public class UserProfileValidator : AbstractValidator<UserProfile>
+    public class UserProfileValidator : AbstractValidator<UserProfileDTO>
     {
         public UserProfileValidator()
         {

@@ -1,8 +1,8 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using PetSocialNetwork.API.DTOs;
 using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
-using PetSocialNetwork.Domain.Membership;
 
 namespace PetSocialNetwork
 {
@@ -24,7 +24,7 @@ namespace PetSocialNetwork
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
-            builder.Services.AddScoped<IValidator<UserProfile>, UserProfileValidator>();
+            builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
 
             var app = builder.Build();
 
