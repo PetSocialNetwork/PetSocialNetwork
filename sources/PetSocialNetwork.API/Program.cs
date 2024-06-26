@@ -1,5 +1,8 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
+using PetSocialNetwork.Domain.Membership;
 
 namespace PetSocialNetwork
 {
@@ -15,17 +18,19 @@ namespace PetSocialNetwork
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()));
-            
+
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
+            builder.Services.AddScoped<IValidator<UserProfile>, UserProfileValidator>();
+
             var app = builder.Build();
 
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");             
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 
