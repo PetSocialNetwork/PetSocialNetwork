@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork", "PetSocialNetwork\PetSocialNetwork.csproj", "{3F01716B-31A5-4BC6-A9CA-98A40022CB5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.API", "sources\PetSocialNetwork.API\PetSocialNetwork.API.csproj", "{3F01716B-31A5-4BC6-A9CA-98A40022CB5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App", "sources\PetSocialNetwork.App\PetSocialNetwork.App.csproj", "{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.App", "sources\PetSocialNetwork.App\PetSocialNetwork.App.csproj", "{330D7CAE-96D1-4A62-BB1E-B229BF0CEF61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.App.Server", "sources\PetSocialNetwork.App.Server\PetSocialNetwork.App.Server.csproj", "{D9887D12-7205-4025-BBB6-0D8F2CD53375}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.App.Server", "sources\PetSocialNetwork.App.Server\PetSocialNetwork.App.Server.csproj", "{D9887D12-7205-4025-BBB6-0D8F2CD53375}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Data.Migrator", "sources\PetSocialNetwork.Data.Migrator\PetSocialNetwork.Data.Migrator.csproj", "{4E67E924-459C-43AE-A153-2848E0263E9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.Data.Migrator", "sources\PetSocialNetwork.Data.Migrator\PetSocialNetwork.Data.Migrator.csproj", "{4E67E924-459C-43AE-A153-2848E0263E9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Data", "sources\PetSocialNetwork.Data\PetSocialNetwork.Data.csproj", "{AAC947BD-D473-4958-B466-045D1ED1CD4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.Data", "sources\PetSocialNetwork.Data\PetSocialNetwork.Data.csproj", "{AAC947BD-D473-4958-B466-045D1ED1CD4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSocialNetwork.Domain", "sources\PetSocialNetwork.Domain\PetSocialNetwork.Domain.csproj", "{0663F32F-1752-4C62-9BC7-8118337A0EC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSocialNetwork.Domain", "sources\PetSocialNetwork.Domain\PetSocialNetwork.Domain.csproj", "{0663F32F-1752-4C62-9BC7-8118337A0EC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

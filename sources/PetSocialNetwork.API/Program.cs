@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using PetSocialNetwork.Configurations;
 using PetSocialNetwork.Data;
 
 namespace PetSocialNetwork
@@ -19,7 +18,7 @@ namespace PetSocialNetwork
             
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<AppDbContext>(options =>
+            builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
             var app = builder.Build();
