@@ -1,8 +1,8 @@
 ﻿using PetSocialNetwork.Domain.Membership;
 
-namespace PetSocialNetwork.API.DTOs
+namespace PetSocialNetwork.API.Contracts
 {
-    public class UserProfileDTO
+    public class UserProfileResponse : ResponseBase
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

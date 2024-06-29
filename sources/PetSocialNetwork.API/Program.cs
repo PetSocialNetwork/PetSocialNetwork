@@ -1,8 +1,8 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using PetSocialNetwork.API.DTOs;
 using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
+using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 
 namespace PetSocialNetwork
 {
@@ -24,7 +24,9 @@ namespace PetSocialNetwork
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
-            builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
+            //builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UserProfileValidator>();
+            builder.Services.AddFluentValidationAutoValidation();
 
             var app = builder.Build();
 
