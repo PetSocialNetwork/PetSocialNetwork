@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PetSocialNetwork.API.Configurations;
+using PetSocialNetwork.API.Services;
 using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
 using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 
-namespace PetSocialNetwork
+namespace PetSocialNetwork.API
 {
     public class Program
     {
@@ -12,6 +16,20 @@ namespace PetSocialNetwork
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            JwtConfig jwtConfig = builder.Configuration
+                .GetRequiredSection("JwtConfig")
+                .Get<JwtConfig>();
+            if (jwtConfig is null)
+            {
+                throw new InvalidOperationException("JwtConfig is not configured");
+            }
+
+            builder.Services.AddSingleton(jwtConfig);
+            var token = builder.Services.AddSingleton(sp => sp.GetRequiredService<IConfiguration>()
+                .GetRequiredSection("Token")
+                .Get<string>());
+ 
+            builder.Services.AddControllersWithViews();
             builder.Services.AddCors(
                 options => options.AddDefaultPolicy(
                     cors => cors
@@ -23,6 +41,31 @@ namespace PetSocialNetwork
 
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+            builder.Services.AddSingleton<ITokenService, TokenService>();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(jwtConfig.SigningKeyBytes),
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
+                        RequireExpirationTime = true,
+                        RequireSignedTokens = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudiences = new[] { jwtConfig.Audience },
+                        ValidIssuer = jwtConfig.Issuer
+                    };
+                });
+
+            builder.Services.AddAuthorization();
 
             //builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<UserProfileValidator>();
@@ -36,11 +79,12 @@ namespace PetSocialNetwork
                 app.UseHsts();
             }
 
-            app.UseCors();
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
