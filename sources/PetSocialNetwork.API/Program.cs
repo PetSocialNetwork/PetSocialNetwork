@@ -23,12 +23,19 @@ namespace PetSocialNetwork.API
             {
                 throw new InvalidOperationException("JwtConfig is not configured");
             }
-
             builder.Services.AddSingleton(jwtConfig);
-            var token = builder.Services.AddSingleton(sp => sp.GetRequiredService<IConfiguration>()
-                .GetRequiredSection("Token")
-                .Get<string>());
- 
+
+
+            TelegramBotConfig telegramBot = builder.Configuration
+               .GetRequiredSection("TelegramBotConfig")
+               .Get<TelegramBotConfig>();
+            if (telegramBot is null)
+            {
+                throw new InvalidOperationException("TelegramBot is not configured");
+            }
+            builder.Services.AddSingleton(telegramBot);
+
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors(
                 options => options.AddDefaultPolicy(
