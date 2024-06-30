@@ -1,4 +1,4 @@
-﻿namespace PetSocialNetwork.Models
+﻿namespace PetSocialNetwork.Domain.Membership
 {
     public class UserProfile
     {
@@ -10,7 +10,9 @@
         private string _animal;
         private Gender _petGender;
         protected UserProfile() { }
-        public UserProfile(Guid id, string firstName, string lastName, string profession, Gender gender, string animal, Gender petGender)
+        public UserProfile(
+            //Guid id,
+            string firstName, string lastName, string profession, Gender gender, string animal, Gender petGender)
         {
             if (string.IsNullOrWhiteSpace(firstName))
             {
@@ -28,7 +30,7 @@
             {
                 throw new ArgumentNullException(nameof(animal));
             }
-            _id = id;
+            //_id = id;
             _firstName = firstName;
             _lastName = lastName;
             _gender = gender;

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using PetSocialNetwork.API.Configurations;
 using PetSocialNetwork.API.Services;
+using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
+using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
 
 namespace PetSocialNetwork.API
 {
@@ -34,6 +37,14 @@ namespace PetSocialNetwork.API
 
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddCors(
+                options => options.AddDefaultPolicy(
+                    cors => cors
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()));
+
+            builder.Services.AddControllers();
 
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
@@ -62,6 +73,10 @@ namespace PetSocialNetwork.API
                 });
 
             builder.Services.AddAuthorization();
+
+            //builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
+            builder.Services.AddValidatorsFromAssemblyContaining<UserProfileValidator>();
+            builder.Services.AddFluentValidationAutoValidation();
 
             var app = builder.Build();
 

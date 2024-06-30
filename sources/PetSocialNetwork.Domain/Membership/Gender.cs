@@ -1,4 +1,4 @@
-﻿namespace PetSocialNetwork.Models
+﻿namespace PetSocialNetwork.Domain.Membership
 {
     public enum Gender
     {

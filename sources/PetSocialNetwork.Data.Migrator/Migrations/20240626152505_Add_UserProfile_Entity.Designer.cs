@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PetSocialNetwork.Data;
@@ -11,9 +12,11 @@ using PetSocialNetwork.Data;
 namespace PetSocialNetwork.Data.Migrator.Migrations
 {
     [DbContext(typeof(PetSocialNetworkDbContext))]
-    partial class PetSocialNetworkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240626152505_Add_UserProfile_Entity")]
+    partial class Add_UserProfile_Entity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
