@@ -74,7 +74,6 @@ namespace PetSocialNetwork.API
 
             builder.Services.AddAuthorization();
 
-            //builder.Services.AddScoped<IValidator<UserProfileDTO>, UserProfileValidator>();
             builder.Services.AddValidatorsFromAssemblyContaining<UserProfileValidator>();
             builder.Services.AddFluentValidationAutoValidation();
 

@@ -10,45 +10,47 @@ namespace PetSocialNetwork.API.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        //private readonly IValidator<UserProfileDTO> _validator;
         private readonly PetSocialNetworkDbContext _context;
 
         public UserProfileController(
-            //IValidator<UserProfileDTO> validator, 
             [FromServices] PetSocialNetworkDbContext context)
         {
-            //_validator = validator ?? throw new ArgumentNullException(nameof(validator));
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         [HttpGet("{id}", Name = "GetProfile")]
-        public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserProfileResponse>> Get(Guid id, CancellationToken cancellationToken)
         {
-            var result = await _context.UserProfiles
+            var existedUserProfile = await _context.UserProfiles
                  .AsNoTracking()
                  .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return result != null ? Ok(result) : NotFound();
+            if (existedUserProfile is null)
+            {
+                return NotFound();
+            }
+
+            var response = new UserProfileResponse
+                (existedUserProfile.Id, existedUserProfile.FirstName, existedUserProfile.LastName, existedUserProfile.Gender, existedUserProfile.Profession, existedUserProfile.Animal, existedUserProfile.PetGender);
+
+            return Ok(response);
         }
 
         [HttpPost(Name = "CreateProfile")]
-        public async Task<IActionResult> Create(UserProfileRequest profile, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserProfileResponse>> Create(UserProfileRequest profile, CancellationToken cancellationToken)
         {
-            //var result = await _validator.ValidateAsync(profile, cancellationToken);
-
-            //if (!result.IsValid)
-            //{
-            //    throw new ValidationException(result.Errors);
-            //}
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+           
+            var userProfile = new UserProfile(Guid.NewGuid(),profile.FirstName, profile.LastName, profile.Profession, profile.Gender, profile.Animal, profile.PetGender);
 
-            var entity = new UserProfile(profile.FirstName, profile.LastName, profile.Profession, profile.Gender, profile.Animal, profile.PetGender);
-
-            await _context.AddAsync(entity, cancellationToken);
+            await _context.AddAsync(userProfile, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            var response = new UserProfileResponse
+             (userProfile.Id, userProfile.FirstName, userProfile.LastName, userProfile.Gender, userProfile.Profession, userProfile.Animal, userProfile.PetGender);
 
             return Ok();
         }

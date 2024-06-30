@@ -2,13 +2,5 @@
 
 namespace PetSocialNetwork.API.Contracts
 {
-    public class UserProfileResponse : ResponseBase
-    {
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public Gender Gender { get; set; }
-        public string? Profession { get; set; }
-        public string? Animal { get; set; }
-        public Gender PetGender { get; set; }
-    }
+    public record UserProfileResponse(Guid Id, string FirstName, string LastName, Gender Gender, string Profession, string Animal, Gender PetGender);
 }

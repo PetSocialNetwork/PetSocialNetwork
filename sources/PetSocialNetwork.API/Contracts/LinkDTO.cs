@@ -1,4 +1,4 @@
-﻿namespace PetSocialNetwork.API.DTOs
+﻿namespace PetSocialNetwork.API.Contracts
 {
     public class LinkDTO
     {

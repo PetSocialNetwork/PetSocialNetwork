@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Configurations;
+using PetSocialNetwork.API.Contracts;
 using PetSocialNetwork.API.Models;
 using PetSocialNetwork.API.Services;
 using PetSocialNetwork.Data;
@@ -21,9 +22,11 @@ public class LoginController : ControllerBase
         _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
+
     [HttpGet("telegram-hook")]
     public Task<IActionResult> HookTelegramLogin([FromQuery] TelegramAuthRequest request) =>
         Task.FromResult((IActionResult)StatusCode(StatusCodes.Status501NotImplemented));
+
 
     [HttpGet("login_by_telegram")]
     public async Task<ActionResult<LoginResponse>> LoginByTelegram([FromQuery] string id,
