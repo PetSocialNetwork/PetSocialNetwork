@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PetSocialNetwork.API.Configurations;
 using PetSocialNetwork.API.Models;
 using PetSocialNetwork.API.Services;
 using PetSocialNetwork.Data;
@@ -26,12 +27,12 @@ public class LoginController : ControllerBase
 
     [HttpGet("login_by_telegram")]
     public async Task<ActionResult<LoginResponse>> LoginByTelegram([FromQuery] string id,
-            [FromServices] string secretKey,
+            [FromServices] TelegramBotConfig secretKey,
             [FromQuery] string hash,
             CancellationToken cancellationToken)
     {
         var dataCheckString = $"id={id}";
-        var calculatedHash = GenerateHmacSha256Hash(dataCheckString, secretKey);
+        var calculatedHash = GenerateHmacSha256Hash(dataCheckString, secretKey.Token);
 
         if (!hash.Equals(calculatedHash, StringComparison.OrdinalIgnoreCase))
         {
