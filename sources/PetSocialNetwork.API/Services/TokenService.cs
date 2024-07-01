@@ -38,7 +38,6 @@ namespace PetSocialNetwork.API.Services
             var claimsIdentity = new ClaimsIdentity(new[]
              {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim("telegramId", user.TelegramId.ToString()), 
                 new Claim("hasFullProfile", user.HasFullProfile.ToString()) 
             });
             return claimsIdentity;
