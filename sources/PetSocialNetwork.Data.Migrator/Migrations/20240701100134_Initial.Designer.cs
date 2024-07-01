@@ -12,8 +12,8 @@ using PetSocialNetwork.Data;
 namespace PetSocialNetwork.Data.Migrator.Migrations
 {
     [DbContext(typeof(PetSocialNetworkDbContext))]
-    [Migration("20240626152505_Add_UserProfile_Entity")]
-    partial class Add_UserProfile_Entity
+    [Migration("20240701100134_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,12 @@ namespace PetSocialNetwork.Data.Migrator.Migrations
                     b.Property<long>("TelegramId")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid>("UserProfileId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserProfileId");
 
                     b.ToTable("Users");
                 });
@@ -70,6 +75,17 @@ namespace PetSocialNetwork.Data.Migrator.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserProfiles");
+                });
+
+            modelBuilder.Entity("PetSocialNetwork.Domain.Membership.User", b =>
+                {
+                    b.HasOne("PetSocialNetwork.Domain.Membership.UserProfile", "UserProfile")
+                        .WithMany()
+                        .HasForeignKey("UserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserProfile");
                 });
 #pragma warning restore 612, 618
         }

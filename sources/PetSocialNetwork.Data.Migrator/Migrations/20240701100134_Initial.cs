@@ -6,18 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetSocialNetwork.Data.Migrator.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_UserProfile_Entity : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "TelegramId",
-                table: "Users",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
-
             migrationBuilder.CreateTable(
                 name: "UserProfiles",
                 columns: table => new
@@ -34,17 +27,40 @@ namespace PetSocialNetwork.Data.Migrator.Migrations
                 {
                     table.PrimaryKey("PK_UserProfiles", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserProfileId = table.Column<Guid>(type: "uuid", nullable: false),
+                    TelegramId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_UserProfiles_UserProfileId",
+                        column: x => x.UserProfileId,
+                        principalTable: "UserProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_UserProfileId",
+                table: "Users",
+                column: "UserProfileId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserProfiles");
+                name: "Users");
 
-            migrationBuilder.DropColumn(
-                name: "TelegramId",
-                table: "Users");
+            migrationBuilder.DropTable(
+                name: "UserProfiles");
         }
     }
 }

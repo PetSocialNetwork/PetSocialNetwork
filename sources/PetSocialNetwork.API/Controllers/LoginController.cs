@@ -29,12 +29,19 @@ public class LoginController : ControllerBase
 
 
     [HttpGet("login_by_telegram")]
-    public async Task<ActionResult<LoginResponse>> LoginByTelegram([FromQuery] string id,
-            [FromServices] TelegramBotConfig secretKey,
+    public async Task<ActionResult<LoginResponse>> LoginByTelegram(
+            [FromQuery] string id,
+            [FromQuery] string first_name,
+            [FromQuery] string last_name,
+            [FromQuery] string username,
+            [FromQuery] string photo_url,
+            [FromQuery] string auth_date,
             [FromQuery] string hash,
+            [FromServices] TelegramBotConfig secretKey,
             CancellationToken cancellationToken)
     {
-        var dataCheckString = $"id={id}";
+        var dataCheckString =
+         $"auth_date={auth_date}\nfirst_name={first_name}\nid={id}\nlast_name={last_name}\nphoto_url={photo_url}\nusername={username}";
         var calculatedHash = GenerateHmacSha256Hash(dataCheckString, secretKey.Token);
 
         if (!hash.Equals(calculatedHash, StringComparison.OrdinalIgnoreCase))
@@ -47,6 +54,7 @@ public class LoginController : ControllerBase
         if (user is null)
         {
             user = new User(Guid.NewGuid(), long.Parse(id));
+            user.AddUserProfile(first_name, last_name, username);
             await _dbContext.Users.AddAsync(user, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
