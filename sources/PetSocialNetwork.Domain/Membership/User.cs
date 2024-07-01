@@ -3,15 +3,18 @@
 public class User
 {
     private Guid _id;
+
     private long _telegramId;
+    private bool _hasFullProfile{ get; set; }
     public UserProfile UserProfile { get; set; }
 
     protected User() { }
 
-    public User(Guid id, long telegramId)
+    public User(Guid id, long telegramId, bool hasFullProfile)
     {
         _id = id;
         _telegramId = telegramId;
+        _hasFullProfile = hasFullProfile;
     }
 
     public Guid Id
@@ -38,6 +41,18 @@ public class User
         }
     }
 
+    public bool HasFullProfile
+    {
+        get
+        {
+            return _hasFullProfile;
+        }
+        set
+        {
+            _hasFullProfile = value;
+        }
+    }
+
     public void AddUserProfile(string firstName, string lastName, string userName)
     {
         if (string.IsNullOrWhiteSpace(firstName))
@@ -57,5 +72,4 @@ public class User
 
         UserProfile = new UserProfile(Guid.NewGuid(), firstName, lastName, userName);
     }
-
 }

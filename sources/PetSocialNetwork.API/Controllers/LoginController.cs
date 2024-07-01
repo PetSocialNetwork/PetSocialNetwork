@@ -53,7 +53,7 @@ public class LoginController : ControllerBase
 
         if (user is null)
         {
-            user = new User(Guid.NewGuid(), long.Parse(id));
+            user = new User(Guid.NewGuid(), long.Parse(id), false);
             user.AddUserProfile(first_name, last_name, username);
             await _dbContext.Users.AddAsync(user, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);

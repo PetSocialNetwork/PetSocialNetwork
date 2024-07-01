@@ -10,7 +10,9 @@
         private string? _profession;
         private string? _animal;
         private Gender _petGender;
+
         protected UserProfile() { }
+
         public UserProfile(Guid id, string firstName, string lastName, string userName)
         {
             if (string.IsNullOrWhiteSpace(firstName))
@@ -28,7 +30,7 @@
             _id = id;
             _firstName = firstName;
             _lastName = lastName;
-            _userName = userName;
+            _userName = userName;        
         }
 
         public Guid Id
@@ -42,6 +44,7 @@
                 _id = value;
             }
         }
+
         public string FirstName
         {
             get
@@ -57,6 +60,7 @@
                 _firstName = value;
             }
         }
+
         public string LastName
         {
             get
@@ -72,6 +76,7 @@
                 _lastName = value;
             }
         }
+
         public string UserName
         {
             get
@@ -87,6 +92,7 @@
                 _userName= value;
             }
         }
+
         public Gender Gender
         {
             get
@@ -98,6 +104,7 @@
                 _gender = value;
             }
         }
+
         public string Profession
         {
             get
@@ -113,6 +120,7 @@
                 _profession = value;
             }
         }
+
         public string Animal
         {
             get
@@ -128,6 +136,7 @@
                 _animal = value;
             }
         }
+
         public Gender PetGender
         {
             get
