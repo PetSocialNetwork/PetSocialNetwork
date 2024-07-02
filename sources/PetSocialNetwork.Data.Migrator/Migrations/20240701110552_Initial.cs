@@ -6,25 +6,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetSocialNetwork.Data.Migrator.Migrations
 {
     /// <inheritdoc />
-    public partial class Add_UserProfile_Entity : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<long>(
-                name: "TelegramId",
-                table: "Users",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L);
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TelegramId = table.Column<long>(type: "bigint", nullable: false),
+                    HasFullProfile = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "UserProfiles",
                 columns: table => new
                 {
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
+                    UserName = table.Column<string>(type: "text", nullable: false),
                     Gender = table.Column<int>(type: "integer", nullable: false),
                     Profession = table.Column<string>(type: "text", nullable: false),
                     Animal = table.Column<string>(type: "text", nullable: false),
@@ -32,7 +40,13 @@ namespace PetSocialNetwork.Data.Migrator.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserProfiles", x => x.Id);
+                    table.PrimaryKey("PK_UserProfiles", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserProfiles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
         }
 
@@ -42,9 +56,8 @@ namespace PetSocialNetwork.Data.Migrator.Migrations
             migrationBuilder.DropTable(
                 name: "UserProfiles");
 
-            migrationBuilder.DropColumn(
-                name: "TelegramId",
-                table: "Users");
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

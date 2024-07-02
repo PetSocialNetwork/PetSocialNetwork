@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Contracts;
 using PetSocialNetwork.Data;
-using PetSocialNetwork.Domain.Membership;
 
 namespace PetSocialNetwork.API.Controllers
 {
@@ -19,7 +18,7 @@ namespace PetSocialNetwork.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetProfile")]
-        public async Task<ActionResult<UserProfileResponse>> Get(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserProfileResponse>> GetUserProfile(Guid id, CancellationToken cancellationToken)
         {
             var existedUserProfile = await _context.UserProfiles
                  .AsNoTracking()
@@ -31,28 +30,30 @@ namespace PetSocialNetwork.API.Controllers
             }
 
             var response = new UserProfileResponse
-                (existedUserProfile.Id, existedUserProfile.FirstName, existedUserProfile.LastName, existedUserProfile.Gender, existedUserProfile.Profession, existedUserProfile.Animal, existedUserProfile.PetGender);
+                (existedUserProfile.Id, existedUserProfile.FirstName, existedUserProfile.LastName, existedUserProfile.UserName,
+                existedUserProfile.Gender, existedUserProfile.Profession, existedUserProfile.Animal, existedUserProfile.PetGender);
 
             return Ok(response);
         }
 
-        [HttpPost(Name = "CreateProfile")]
-        public async Task<ActionResult<UserProfileResponse>> Create(UserProfileRequest profile, CancellationToken cancellationToken)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-           
-            var userProfile = new UserProfile(Guid.NewGuid(),profile.FirstName, profile.LastName, profile.Profession, profile.Gender, profile.Animal, profile.PetGender);
 
-            await _context.AddAsync(userProfile, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+        [HttpGet("{id}", Name = "GetProfileByTelegramId")]
+        public async Task<ActionResult<UserProfileResponse>> GetUserProfileByTelegramId(long telegramId, CancellationToken cancellationToken)
+        {
+            var user = await _context.Users
+                .AsNoTracking()
+                .SingleOrDefaultAsync(it => it.TelegramId == telegramId, cancellationToken);
+
+            if (user is null)
+            {
+                return NotFound();
+            }
 
             var response = new UserProfileResponse
-             (userProfile.Id, userProfile.FirstName, userProfile.LastName, userProfile.Gender, userProfile.Profession, userProfile.Animal, userProfile.PetGender);
+                (user.UserProfile.Id, user.UserProfile.FirstName, user.UserProfile.LastName, user.UserProfile.UserName,
+                user.UserProfile.Gender, user.UserProfile.Profession, user.UserProfile.Animal, user.UserProfile.PetGender);
 
-            return Ok();
+            return Ok(response);
         }
     }
 }

@@ -5,12 +5,15 @@
         private Guid _id;
         private string _firstName;
         private string _lastName;
+        private string _userName;
         private Gender _gender;
-        private string _profession;
-        private string _animal;
+        private string? _profession;
+        private string? _animal;
         private Gender _petGender;
+
         protected UserProfile() { }
-        public UserProfile(Guid id, string firstName, string lastName, string profession, Gender gender, string animal, Gender petGender)
+
+        public UserProfile(Guid id, string firstName, string lastName, string userName)
         {
             if (string.IsNullOrWhiteSpace(firstName))
             {
@@ -20,21 +23,14 @@
             {
                 throw new ArgumentNullException(nameof(lastName));
             }
-            if (string.IsNullOrWhiteSpace(profession))
+            if (string.IsNullOrWhiteSpace(userName))
             {
-                throw new ArgumentNullException(nameof(profession));
-            }
-            if (string.IsNullOrWhiteSpace(animal))
-            {
-                throw new ArgumentNullException(nameof(animal));
+                throw new ArgumentNullException(nameof(userName));
             }
             _id = id;
             _firstName = firstName;
             _lastName = lastName;
-            _gender = gender;
-            _profession = profession;
-            _animal = animal;
-            _petGender = petGender;
+            _userName = userName;        
         }
 
         public Guid Id
@@ -48,6 +44,7 @@
                 _id = value;
             }
         }
+
         public string FirstName
         {
             get
@@ -63,6 +60,7 @@
                 _firstName = value;
             }
         }
+
         public string LastName
         {
             get
@@ -78,6 +76,23 @@
                 _lastName = value;
             }
         }
+
+        public string UserName
+        {
+            get
+            {
+                return _userName;
+            }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }
+                _userName= value;
+            }
+        }
+
         public Gender Gender
         {
             get
@@ -89,6 +104,7 @@
                 _gender = value;
             }
         }
+
         public string Profession
         {
             get
@@ -104,6 +120,7 @@
                 _profession = value;
             }
         }
+
         public string Animal
         {
             get
@@ -119,6 +136,7 @@
                 _animal = value;
             }
         }
+
         public Gender PetGender
         {
             get
