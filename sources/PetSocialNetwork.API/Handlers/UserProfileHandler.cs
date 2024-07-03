@@ -6,7 +6,7 @@ using PetSocialNetwork.API.Contracts.Responses;
 using PetSocialNetwork.Data;
 using PetSocialNetwork.Domain.Exceptions;
 
-namespace PetSocialNetwork.API
+namespace PetSocialNetwork.API.Handlers
 {
     public class UserProfileHandler : IRequestHandler<GetUserProfileByTelegramIdRequest, UserProfileResponse>,
                                       IRequestHandler<GetUserProfileByIdRequest, UserProfileResponse>
