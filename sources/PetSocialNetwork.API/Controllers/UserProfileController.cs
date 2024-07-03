@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetSocialNetwork.API.Contracts;
-using PetSocialNetwork.Data;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using PetSocialNetwork.API.Contracts.Requests;
+using PetSocialNetwork.API.Contracts.Responses;
+using PetSocialNetwork.Domain.Exceptions;
 
 namespace PetSocialNetwork.API.Controllers
 {
@@ -9,51 +10,39 @@ namespace PetSocialNetwork.API.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly PetSocialNetworkDbContext _context;
+        private readonly ISender _mediator; 
 
-        public UserProfileController(
-            [FromServices] PetSocialNetworkDbContext context)
+        public UserProfileController([FromServices] ISender mediator)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         [HttpGet("{id}", Name = "GetProfile")]
-        public async Task<ActionResult<UserProfileResponse>> GetUserProfile(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<UserProfileResponse>> GetUserProfileById(Guid id, CancellationToken cancellationToken)
         {
-            var existedUserProfile = await _context.UserProfiles
-                 .AsNoTracking()
-                 .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
-
-            if (existedUserProfile is null)
+            try
+            {
+                var response = await _mediator.Send(new GetUserProfileByIdRequest(id), cancellationToken);
+                return Ok(response);
+            }
+            catch (UserProfileNotFoundException)
             {
                 return NotFound();
             }
-
-            var response = new UserProfileResponse
-                (existedUserProfile.Id, existedUserProfile.FirstName, existedUserProfile.LastName, existedUserProfile.UserName,
-                existedUserProfile.Gender, existedUserProfile.Profession, existedUserProfile.Animal, existedUserProfile.PetGender);
-
-            return Ok(response);
         }
-
 
         [HttpGet("{id}", Name = "GetProfileByTelegramId")]
         public async Task<ActionResult<UserProfileResponse>> GetUserProfileByTelegramId(long telegramId, CancellationToken cancellationToken)
         {
-            var user = await _context.Users
-                .AsNoTracking()
-                .SingleOrDefaultAsync(it => it.TelegramId == telegramId, cancellationToken);
-
-            if (user is null)
+            try
+            {
+                var response = await _mediator.Send(new GetUserProfileByTelegramIdRequest(telegramId), cancellationToken);
+                return Ok(response);
+            }
+            catch(UserNotFoundException)
             {
                 return NotFound();
-            }
-
-            var response = new UserProfileResponse
-                (user.UserProfile.Id, user.UserProfile.FirstName, user.UserProfile.LastName, user.UserProfile.UserName,
-                user.UserProfile.Gender, user.UserProfile.Profession, user.UserProfile.Animal, user.UserProfile.PetGender);
-
-            return Ok(response);
+            }          
         }
     }
 }

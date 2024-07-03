@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Configurations;
-using PetSocialNetwork.API.Contracts;
+using PetSocialNetwork.API.Contracts.Responses;
 using PetSocialNetwork.API.Models;
 using PetSocialNetwork.API.Services;
 using PetSocialNetwork.Data;
