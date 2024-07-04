@@ -1,21 +1,16 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Contracts.Requests;
 using PetSocialNetwork.API.Contracts.Responses;
 using PetSocialNetwork.Data;
 using PetSocialNetwork.Domain.Exceptions;
 
-namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserProfile
+namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserProfileHandler
 {
-    public class GetUserProfileByTelegramIdHandler : IRequestHandler<GetUserProfileByTelegramIdRequest, UserProfileResponse>
+    public class GetUserProfileByTelegramIdHandler : BaseHandler<GetUserProfileByTelegramIdRequest, UserProfileResponse>
     {
-        private readonly PetSocialNetworkDbContext _context;
+        public GetUserProfileByTelegramIdHandler(PetSocialNetworkDbContext context) : base(context) { }
 
-        public GetUserProfileByTelegramIdHandler(PetSocialNetworkDbContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-        public async Task<UserProfileResponse> Handle(GetUserProfileByTelegramIdRequest request, CancellationToken cancellationToken)
+        public override async Task<UserProfileResponse> Handle(GetUserProfileByTelegramIdRequest request, CancellationToken cancellationToken)
         {
             var user = await _context.Users
                  .AsNoTracking()

@@ -1,20 +1,15 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Contracts.Requests;
 using PetSocialNetwork.API.Contracts.Responses;
 using PetSocialNetwork.Data;
 using PetSocialNetwork.Domain.Exceptions;
 
-namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserProfile
+namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserProfileHandler
 {
-    public class GetUserProfileByIdHandler : IRequestHandler<GetUserProfileByIdRequest, UserProfileResponse>
+    public class GetUserProfileByIdHandler : BaseHandler<GetUserProfileByIdRequest, UserProfileResponse>
     {
-        private readonly PetSocialNetworkDbContext _context;
-        public GetUserProfileByIdHandler(PetSocialNetworkDbContext context)
-        {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
-        }
-        public async Task<UserProfileResponse> Handle(GetUserProfileByIdRequest request, CancellationToken cancellationToken)
+        public GetUserProfileByIdHandler(PetSocialNetworkDbContext context) : base(context) { }
+        public override async Task<UserProfileResponse> Handle(GetUserProfileByIdRequest request, CancellationToken cancellationToken)
         {
             var existedUserProfile = await _context.UserProfiles
                   .AsNoTracking()

@@ -10,19 +10,17 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PetSocialNetwork.API.Handlers.CommandHandlers.User
+namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserHadler
 {
-    public class LoginHandler : IRequestHandler<LoginByTelegramRequest, LoginResponse>
+    public class LoginHandler : BaseHandler<LoginByTelegramRequest, LoginResponse>
     {
-        private readonly PetSocialNetworkDbContext _context;
         private readonly ITokenService _tokenService;
-        public LoginHandler([FromServices] PetSocialNetworkDbContext context,
-            [FromServices] ITokenService tokenService)
+        public LoginHandler(PetSocialNetworkDbContext context,
+            [FromServices] ITokenService tokenService) : base(context)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
             _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
         }
-        public async Task<LoginResponse> Handle(LoginByTelegramRequest request, CancellationToken cancellationToken)
+        public override async Task<LoginResponse> Handle(LoginByTelegramRequest request, CancellationToken cancellationToken)
         {
             var dataCheckString =
                     $"auth_date={request.AuthDate}\nfirst_name={request.FirstName}\nid={request.Id}\n" +
