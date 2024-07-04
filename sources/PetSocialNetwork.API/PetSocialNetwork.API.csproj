@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetSocialNetwork.Data.Migrator\PetSocialNetwork.Data.Migrator.csproj" />
     <ProjectReference Include="..\PetSocialNetwork.Data\PetSocialNetwork.Data.csproj" />
   </ItemGroup>
 

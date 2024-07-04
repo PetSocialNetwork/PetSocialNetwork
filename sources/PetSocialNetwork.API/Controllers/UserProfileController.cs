@@ -10,9 +10,9 @@ namespace PetSocialNetwork.API.Controllers
     [ApiController]
     public class UserProfileController : ControllerBase
     {
-        private readonly ISender _mediator; 
+        private readonly IMediator _mediator; 
 
-        public UserProfileController([FromServices] ISender mediator)
+        public UserProfileController([FromServices] IMediator mediator)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }

@@ -12,8 +12,8 @@ namespace PetSocialNetwork.API.Controllers;
 [Route("api/[controller]")]
 public class LoginController : ControllerBase
 {
-    private readonly ISender _mediator;
-    public LoginController([FromServices] ISender mediator)
+    private readonly IMediator _mediator;
+    public LoginController([FromServices] IMediator mediator)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }

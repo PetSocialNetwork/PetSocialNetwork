@@ -10,7 +10,7 @@ using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace PetSocialNetwork.API.Handlers
+namespace PetSocialNetwork.API.Handlers.CommandHandlers.User
 {
     public class LoginHandler : IRequestHandler<LoginByTelegramRequest, LoginResponse>
     {
