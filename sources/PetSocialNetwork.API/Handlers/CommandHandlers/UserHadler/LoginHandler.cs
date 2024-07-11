@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using EasyNetQ;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetSocialNetwork.API.Contracts.Requests;
@@ -6,6 +6,7 @@ using PetSocialNetwork.API.Contracts.Responses;
 using PetSocialNetwork.API.Services;
 using PetSocialNetwork.Data;
 using PetSocialNetwork.Domain.Membership;
+using PetSocialNetwork.NotificationService;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,10 +16,12 @@ namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserHadler
     public class LoginHandler : BaseHandler<LoginByTelegramRequest, LoginResponse>
     {
         private readonly ITokenService _tokenService;
-        public LoginHandler(PetSocialNetworkDbContext context,
+        private readonly IBus _bus;
+        public LoginHandler(PetSocialNetworkDbContext context, [FromServices] IBus bus,
             [FromServices] ITokenService tokenService) : base(context)
         {
             _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
         public override async Task<LoginResponse> Handle(LoginByTelegramRequest request, CancellationToken cancellationToken)
         {
@@ -45,6 +48,11 @@ namespace PetSocialNetwork.API.Handlers.CommandHandlers.UserHadler
 
             var token = _tokenService.GenerateToken(user);
             var response = new LoginResponse(user.Id, user.TelegramId, token);
+
+        
+            //нужно получать chatId
+            var registrationMessage = new TelegramRegistrationMessage{ChatId = user.TelegramId, Message = "Добро пожаловать в телеграм" };
+            await _bus.PubSub.PublishAsync(registrationMessage, "registration_queue", cancellationToken);
 
             return response;
         }

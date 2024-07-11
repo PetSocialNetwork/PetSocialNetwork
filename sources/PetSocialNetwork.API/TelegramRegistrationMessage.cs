@@ -1,8 +1,8 @@
 ﻿namespace PetSocialNetwork.NotificationService
 {
-    public class TelegramOptions
+    public class TelegramRegistrationMessage
     {
         public string Message { get; set; }
-        public Guid TelegramId{ get; set; }
+        public long ChatId{ get; set; }
     }
 }
