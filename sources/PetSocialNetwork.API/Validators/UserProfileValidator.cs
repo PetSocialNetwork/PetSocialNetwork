@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using PetSocialNetwork.API.Contracts;
+using PetSocialNetwork.API.Contracts.Requests;
 
 namespace PetSocialNetwork.API.Validators
 {
