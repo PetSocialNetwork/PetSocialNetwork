@@ -17,7 +17,7 @@ namespace PetSocialNetwork.API.Controllers
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        [HttpGet("{id}", Name = "GetProfile")]
+        [HttpGet("profile/{id}", Name = "GetProfile")]
         public async Task<ActionResult<UserProfileResponse>> GetUserProfile(Guid id, CancellationToken cancellationToken)
         {
             var existedUserProfile = await _context.UserProfiles
@@ -37,7 +37,7 @@ namespace PetSocialNetwork.API.Controllers
         }
 
 
-        [HttpGet("{id}", Name = "GetProfileByTelegramId")]
+        [HttpGet("telegram/{telegramId}", Name = "GetProfileByTelegramId")]
         public async Task<ActionResult<UserProfileResponse>> GetUserProfileByTelegramId(long telegramId, CancellationToken cancellationToken)
         {
             var user = await _context.Users

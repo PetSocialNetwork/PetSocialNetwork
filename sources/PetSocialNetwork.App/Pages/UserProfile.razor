@@ -1,0 +1,48 @@
+﻿@page "/userProfile"
+@inject IUserProfileService _userProfileService;
+
+<MudPaper Class="pa-4">
+    <MudText Typo="Typo.h4" GutterBottom="true">User Profile</MudText>
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Фамилия</MudText>
+            <MudText Typo="Typo.body1">@userProfile.FirstName</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Last Name</MudText>
+            <MudText Typo="Typo.body1">@userProfile.LastName</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Username</MudText>
+            <MudText Typo="Typo.body1">@userProfile.UserName</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Gender</MudText>
+            <MudText Typo="Typo.body1">@userProfile.Gender.ToString()</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Profession</MudText>
+            <MudText Typo="Typo.body1">@userProfile.Profession</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Animal</MudText>
+            <MudText Typo="Typo.body1">@userProfile.Animal</MudText>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <MudText Typo="Typo.subtitle1">Pet Gender</MudText>
+            <MudText Typo="Typo.body1">@userProfile.PetGender.ToString()</MudText>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; } = new Guid("123e4567-e89b-12d3-a456-426614174000");
+
+    private UserProfileViewModel userProfile{ get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        userProfile = await _userProfileService.GetUserProfileAsync(Id);
+    }
+}

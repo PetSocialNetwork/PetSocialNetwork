@@ -36,7 +36,7 @@ namespace PetSocialNetwork.API
             builder.Services.AddSingleton(telegramBot);
 
 
-            builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews();
             builder.Services.AddCors(
                 options => options.AddDefaultPolicy(
                     cors => cors
