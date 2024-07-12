@@ -7,6 +7,7 @@ using PetSocialNetwork.API.Services;
 using PetSocialNetwork.API.Validators;
 using PetSocialNetwork.Data;
 using SharpGrip.FluentValidation.AutoValidation.Endpoints.Extensions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace PetSocialNetwork.API
 {
@@ -49,6 +50,8 @@ namespace PetSocialNetwork.API
             builder.Services.AddDbContext<PetSocialNetworkDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
             builder.Services.AddSingleton<ITokenService, TokenService>();
+
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
             builder.Services.AddAuthentication(options =>
             {
