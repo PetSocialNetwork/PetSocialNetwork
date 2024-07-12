@@ -20,8 +20,6 @@ builder.Services.AddMudServices();
 
 builder.Services.AddMediatR(opt=>opt.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IPipelineBehavior<GetUserProfileQuery, UserProfileViewModel>, GetUserProfileQueryHandler>();
 
