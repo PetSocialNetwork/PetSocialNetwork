@@ -363,3 +363,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /sources/PetSocialNetwork.API/appsettings.Development.json
+/sources/AppSettings/appsettings.Development.json
