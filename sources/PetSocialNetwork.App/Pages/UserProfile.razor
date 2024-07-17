@@ -9,27 +9,27 @@
             <MudText Typo="Typo.body1">@userProfile.FirstName</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Last Name</MudText>
+            <MudText Typo="Typo.subtitle1">Имя</MudText>
             <MudText Typo="Typo.body1">@userProfile.LastName</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Username</MudText>
+            <MudText Typo="Typo.subtitle1">Логин</MudText>
             <MudText Typo="Typo.body1">@userProfile.UserName</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Gender</MudText>
+            <MudText Typo="Typo.subtitle1">Пол</MudText>
             <MudText Typo="Typo.body1">@userProfile.Gender.ToString()</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Profession</MudText>
+            <MudText Typo="Typo.subtitle1">Профессия</MudText>
             <MudText Typo="Typo.body1">@userProfile.Profession</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Animal</MudText>
+            <MudText Typo="Typo.subtitle1">Животное</MudText>
             <MudText Typo="Typo.body1">@userProfile.Animal</MudText>
         </MudItem>
         <MudItem xs="12" sm="6">
-            <MudText Typo="Typo.subtitle1">Pet Gender</MudText>
+            <MudText Typo="Typo.subtitle1">Pet Пол</MudText>
             <MudText Typo="Typo.body1">@userProfile.PetGender.ToString()</MudText>
         </MudItem>
     </MudGrid>
@@ -37,9 +37,9 @@
 
 @code {
     [Parameter]
-    public Guid Id { get; set; } = new Guid("123e4567-e89b-12d3-a456-426614174000");
+    public long Id { get; set; } = 1234567890;
 
-    private UserProfileViewModel userProfile{ get; set; }
+    private UserProfileViewModel userProfile = new UserProfileViewModel();
 
     protected override async Task OnInitializedAsync()
     {

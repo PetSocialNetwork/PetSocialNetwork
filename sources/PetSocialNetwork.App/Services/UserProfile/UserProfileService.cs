@@ -14,7 +14,7 @@ namespace PetSocialNetwork.App.Services.UserProfile
             _mediator = mediator;
         }
 
-        public async Task<UserProfileViewModel> GetUserProfileAsync(Guid id)
+        public async Task<UserProfileViewModel> GetUserProfileAsync(long id)
         {
             try
             {

@@ -5,6 +5,6 @@ namespace PetSocialNetwork.App.Mediator.Queries
 {
     public class GetUserProfileQuery : IRequest<UserProfileViewModel>
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
     }
 }

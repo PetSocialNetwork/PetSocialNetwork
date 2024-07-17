@@ -4,6 +4,6 @@ namespace PetSocialNetwork.App.Services.UserProfile.Contracts
 {
     public interface IUserProfileService
     {
-        Task<UserProfileViewModel> GetUserProfileAsync(Guid id);
+        Task<UserProfileViewModel> GetUserProfileAsync(long id);
     }
 }

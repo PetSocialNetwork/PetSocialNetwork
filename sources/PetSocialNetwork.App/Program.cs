@@ -24,12 +24,12 @@ builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 builder.Services.AddScoped<IPipelineBehavior<GetUserProfileQuery, UserProfileViewModel>, GetUserProfileQueryHandler>();
 
 // Регистрация IHttpClientFactory
-builder.Services.AddHttpClient("BaseAPI", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl"));
-});
+//builder.Services.AddHttpClient("BaseAPI", client =>
+//{
+//    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl"));
+//});
 
-//builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl"))});
+builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl"))});
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 builder.Services.AddCascadingAuthenticationState();

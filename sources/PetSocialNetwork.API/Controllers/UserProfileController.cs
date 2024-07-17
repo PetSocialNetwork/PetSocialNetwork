@@ -6,7 +6,7 @@ using PetSocialNetwork.Domain.Exceptions;
 
 namespace PetSocialNetwork.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
     {
