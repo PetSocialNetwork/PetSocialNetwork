@@ -1,4 +1,14 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">PetSocialNetwork</MudNavLink>
+    <MudNavLink Href="/userProfile" Match="NavLinkMatch.Prefix">Профиль</MudNavLink>
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Новости</MudNavLink>
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Друзья</MudNavLink>
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Сообщения</MudNavLink>
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">Питомцы</MudNavLink>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">О нас</MudNavLink>
+</MudNavMenu>
+
+@* <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">PetSocialNetwork.App</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -25,16 +35,4 @@
             </NavLink>
         </div>
     </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-}
+</div> *@

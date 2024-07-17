@@ -6,7 +6,7 @@ using PetSocialNetwork.Domain.Exceptions;
 
 namespace PetSocialNetwork.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
     {
@@ -17,8 +17,8 @@ namespace PetSocialNetwork.API.Controllers
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [HttpGet("{id}", Name = "GetProfile")]
-        public async Task<ActionResult<UserProfileResponse>> GetUserProfileById(Guid id, CancellationToken cancellationToken)
+        [HttpGet("profile/{id}", Name = "GetProfile")]
+        public async Task<ActionResult<UserProfileResponse>> GetUserProfile(Guid id, CancellationToken cancellationToken)
         {
             try
             {
@@ -31,7 +31,8 @@ namespace PetSocialNetwork.API.Controllers
             }
         }
 
-        [HttpGet("{id}", Name = "GetProfileByTelegramId")]
+
+        [HttpGet("telegram/{telegramId}", Name = "GetProfileByTelegramId")]
         public async Task<ActionResult<UserProfileResponse>> GetUserProfileByTelegramId(long telegramId, CancellationToken cancellationToken)
         {
             try

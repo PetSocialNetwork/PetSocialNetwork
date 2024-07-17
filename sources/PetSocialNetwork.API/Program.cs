@@ -37,13 +37,18 @@ namespace PetSocialNetwork.API
             builder.Services.AddSingleton(telegramBot);
 
 
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddCors(
-                options => options.AddDefaultPolicy(
-                    cors => cors
+            //builder.Services.AddControllersWithViews();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "BlazorCors",
+                    policy =>
+                    {
+                        policy.WithOrigins("https://localhost:7014")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()));
+                        .AllowCredentials();
+                    });
+            });
 
             builder.Services.AddControllers();
 
@@ -88,11 +93,13 @@ namespace PetSocialNetwork.API
                 app.UseHsts();
             }
 
+            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("BlazorCors");
             app.UseAuthentication();
             app.UseAuthorization();
 
